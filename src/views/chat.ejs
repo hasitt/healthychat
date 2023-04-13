@@ -1,0 +1,35 @@
+<!-- chat.ejs -->
+<ul id="messages">
+  <% for (var i = 0; i < messages.length; i++) { %>
+    <li><%= messages[i] %></li>
+  <% } %>
+</ul>
+
+<form id="message-form">
+  <input id="message-input" type="text" placeholder="Type your message here">
+  <button type="submit">Send</button>
+</form>
+
+<script>
+  const socket = io();
+
+  // add event listeners
+  const messageForm = document.getElementById('message-form');
+  const messageInput = document.getElementById('message-input');
+  const messagesList = document.getElementById('messages');
+
+  messageForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const message = messageInput.value.trim();
+    if (message) {
+      socket.emit('chat message', message);
+      messageInput.value = '';
+    }
+  });
+
+  socket.on('chat message', message => {
+    const listItem = document.createElement('li');
+    listItem.textContent = message;
+    messagesList.appendChild(listItem);
+  });
+</script>

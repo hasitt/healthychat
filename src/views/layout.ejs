@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My App</title>
+  <% if (navigator.userAgent.match(/Android/i)) { %>
+    <link rel="stylesheet" href="android.css">
+  <% } else if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) { %>
+    <link rel="stylesheet" href="ios.css">
+  <% } else { %>
+    <link rel="stylesheet" href="desktop.css">
+  <% } %>
+</head>
+<body>
+  <%- body %>
+</body>
+</html>
